@@ -1,0 +1,106 @@
+<!doctype HTML>
+<html>
+<head>
+<title>Slide panel demo</title>
+<style type="text/css">
+  * {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    padding:0;
+    margin:0;
+    background-color: #000;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  html, body, #container, .panel {
+    width:100%;
+    height:100%;
+  }
+
+  #container, .panel {
+    position:absolute;
+    -webkit-backface-visibility: hidden;
+  } 
+
+  .panel {
+    border: 10px solid black;
+    border-radius: 20px;
+    border-top-left-radius: 200px;
+    background-color: #fff;
+  }
+  
+  span {
+    display:block;
+    text-align:center;
+    width:370px;
+    height:370px;
+    line-height: 300px;
+    font-size:240px;
+    padding:40px;
+    margin:10px;
+    border-radius: 210px;
+    color:#fff;
+  }
+  
+</style>
+<script type="text/javascript" src="slidePanel.js"></script>
+<script type="text/javascript">
+  'use strict';
+  
+  window.addEventListener('load', function() {
+  
+    var container = document.getElementById('container');
+    var slidePanel = new SlidePanel(container);
+    
+    for (var ii = 1; ii <= 99; ++ii) {
+      var page = document.createElement('div');
+      var count = document.createElement('span');      
+      var hue = Math.round((Math.random()) * 360);
+      var complement = (hue + 180) % 360;
+      
+      page.style.backgroundColor = 'hsl(' + hue + ',100%, 80%)';  
+      count.style.backgroundColor = 'hsl(' + complement + ',100%, 20%)';  
+      count.innerHTML = ii;
+
+      page.appendChild(count);
+      slidePanel.add(page);
+    }
+    slidePanel.reposition();
+
+
+    document.addEventListener('keydown', function(e) {
+      if (event.keyCode === 39) {
+        slidePanel.next();
+        e.preventDefault();
+      };
+      if (event.keyCode === 37) {
+        slidePanel.back();
+        e.preventDefault();
+      };      
+    });
+
+  });
+
+
+  
+
+
+
+</script>
+  
+</head>
+<body>
+<div style="background-color: hsl(0,100%, 50%);"></div> <div style="background-color: hsl(120,100%, 50%);"></div> <div style="background-color: hsl(240,100%, 50%);"></div>
+<div id="container">
+
+</div>
+</body>
+<html>
