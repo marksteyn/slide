@@ -74,16 +74,18 @@
   //
   var tempStyle = document.createElement('div').style;
   var browser = '';
-  var cssPrefix = '';
+  var cssPrefix = 'transform';
   ['t', 'webkitT', 'MozT', 'msT', 'OT'].some(function(prefix) {
     if (prefix + 'ransform' in tempStyle) {
       browser = prefix.substr(0, prefix.length - 1);
-      cssPrefix = '-' + browser.toLowerCase() + '-';
+      cssPrefix = prefix.length === 1 ? '' : '-' + browser.toLowerCase() + '-';
       return true;
     }
   });
+  
   var	transformStyle = prefixedStyle('transform');
   var transitionStyle = prefixedStyle('transition');
+  
   var transitionEndEvent = {
     '' : 'transitionend',
     'webkit' : 'webkitTransitionEnd',
